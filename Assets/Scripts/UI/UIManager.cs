@@ -233,38 +233,40 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText)
+    internal void InitialiseUIData(Paylines symbolsText)
     {
+        Debug.Log($"symbols calle");
         PopulateSymbolsPayout(symbolsText);
     }
     private void PopulateSymbolsPayout(Paylines paylines)
     {
         for (int i = 0; i < SymbolsText.Length; i++)
         {
+            Debug.Log($" symbolos payout "+ paylines.symbols[i].multiplier[0]);
             string text = null;
-            if (paylines.symbols[i].Multiplier[0][0] != 0)
+            if (paylines.symbols[i].multiplier[0] != 0)
             {
-                text += "x - " + paylines.symbols[i].Multiplier[0][0]+"x";
+                text += "x - " + paylines.symbols[i].multiplier[0]+"x";
             }
-            if (paylines.symbols[i].Multiplier[1][0] != 0)
+            if (paylines.symbols[i].multiplier[1] != 0)
             {
-                text += "\nx - " + paylines.symbols[i].Multiplier[1][0]+"x";
+                text += "\nx - " + paylines.symbols[i].multiplier[1]+"x";
             }
-            if (paylines.symbols[i].Multiplier[2][0] != 0)
+            if (paylines.symbols[i].multiplier[2] != 0)
             {
-                text += "\nx - " + paylines.symbols[i].Multiplier[2][0]+"x";
+                text += "\nx - " + paylines.symbols[i].multiplier[2]+"x";
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
         }
 
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
-            if (paylines.symbols[i].Name.ToUpper() == "BONUS")
+            if (paylines.symbols[i].name.ToUpper() == "BONUS")
             {
                 if (Bonus_Text) Bonus_Text.text = paylines.symbols[i].description.ToString();
             }
 
-            if (paylines.symbols[i].Name.ToUpper() == "WILD")
+            if (paylines.symbols[i].name.ToUpper() == "WILD")
             {
 
                 if (Wild_Text) Wild_Text.text = paylines.symbols[i].description.ToString();

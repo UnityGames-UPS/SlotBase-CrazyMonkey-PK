@@ -18,11 +18,14 @@ public class CoconutBreaking : MonoBehaviour
 
     [SerializeField]
     internal bool isOpen;
+    [SerializeField] private int CaseIndex;
+
 
     void Start()
     {
         if (Bail) Bail.onClick.RemoveAllListeners();
-        if (Bail) Bail.onClick.AddListener(OpenCase);
+        // if (Bail) Bail.onClick.AddListener(OpenCase);
+        if (Bail) Bail.onClick.AddListener(() => StartCoroutine(TapBonus()));
     }
 
     internal void ResetCase()
@@ -33,8 +36,23 @@ public class CoconutBreaking : MonoBehaviour
         Bail.gameObject.SetActive(true);
     }
 
+    private IEnumerator TapBonus()
+    {
+        SocketManager.AccumulateTapBonusResult(CaseIndex);
+        yield return new WaitUntil(() => SocketManager.isResultdone);
+        // if (SocketManager.BonusData.winAmount > 0)
+        // {
+        //     text.text = SocketManager.BonusData.winAmount.ToString("f2");
+        // }
+        // else
+        // {
+        //     text.text = "GAME OVER";
+        // }
+        OpenCase();
+    }
     void OpenCase()
     {
+
         if (isOpen)
             return;
         _bonusManager.enableRayCastPanel(true);
@@ -47,12 +65,14 @@ public class CoconutBreaking : MonoBehaviour
 
     void PopulateCase()
     {
-        double value = _bonusManager.GetValue();
-        if (value > 0)
+        double value =  SocketManager.BonusData.payload.winAmount;
+        double payout = SocketManager.BonusData.payload.payout;
+        if (payout > 0)
         {
+            _bonusManager.Totalwinamount += value;
             text.text = value.ToString("f2");
         }
-       
+
         else
         {
             text.text = "GAME OVER";

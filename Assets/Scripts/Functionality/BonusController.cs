@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Best.SocketIO;
 
 public class BonusController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BonusController : MonoBehaviour
     private GameObject Bonus_Object;
     [SerializeField]
     private SlotBehaviour slotManager;
+    [SerializeField] private SocketIOManager socketManager;
     [SerializeField]
     private GameObject raycastPanel;
     [SerializeField]
@@ -25,16 +27,15 @@ public class BonusController : MonoBehaviour
 
     int index = 0;
     double winAmount = 0;
+    public double Totalwinamount=0;
 
-    internal void GetBailCaseList(List<int> values)
+    internal void GetBailCaseList()
     {
         index = 0;
         CaseValues.Clear();
         CaseValues.TrimExcess();
-        CaseValues = values;
         if (Win_Text) Win_Text.text = "0";
         winAmount = 0;
-
         foreach (CoconutBreaking cases in BonusCases)
         {
             cases.ResetCase();
@@ -54,6 +55,9 @@ public class BonusController : MonoBehaviour
         slotManager.CheckPopups = false;
         if (Bonus_Object) Bonus_Object.SetActive(false);
         if (_audioManager) _audioManager.SwitchBGSound(false);
+        slotManager.updateBalance(socketManager.BonusData.player.balance, socketManager.BonusData.payload.winAmount);
+        socketManager.resultData.payload.winAmount = socketManager.BonusData.payload.winAmount;
+        Totalwinamount = 0;
     }
 
     internal double GetValue()
@@ -71,8 +75,15 @@ public class BonusController : MonoBehaviour
         return value * slotManager.currentBet;
     }
 
-    private void StartBonus()
+    public void StartBonus()
     {
+        if (Win_Text) Win_Text.text = "0";
+        winAmount = 0;
+        foreach (CoconutBreaking cases in BonusCases)
+        {
+            cases.ResetCase();
+        }
+        if (raycastPanel) raycastPanel.SetActive(false);
         if (_audioManager) _audioManager.SwitchBGSound(true);
         if (Bonus_Object) Bonus_Object.SetActive(true);
     }
@@ -89,6 +100,6 @@ public class BonusController : MonoBehaviour
 
     internal void UpdateWinText()
     {
-        if (Win_Text) Win_Text.text = winAmount.ToString("f2");
+        if (Win_Text) Win_Text.text = Totalwinamount.ToString("f2");
     }
 }

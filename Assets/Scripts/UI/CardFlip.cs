@@ -41,7 +41,8 @@ public class CardFlip : MonoBehaviour
     private IEnumerator FlipMainObject()
     {
         gambleController.RunOnCollect();
-        yield return new WaitUntil(() => gambleController.isResult);
+        //  yield return new WaitUntil(() => gambleController.isResult);
+        yield return null;
         cardImage = gambleController.GetCard();
         FlipMyObject();
     }
