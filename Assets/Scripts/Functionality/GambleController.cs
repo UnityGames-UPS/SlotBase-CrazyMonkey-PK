@@ -104,7 +104,8 @@ public class GambleController : MonoBehaviour
         if (gamble_game) gamble_game.SetActive(true);
         loadingScreen.SetActive(true);
         StartCoroutine(loadingRoutine());
-        StartCoroutine(GambleCoroutine(isRepeat));
+       if(!isRepeat) socketManager.OnGamble();
+      //  StartCoroutine(GambleCoroutine(isRepeat));
     }
 
     internal void GambleTweeningAnim(bool IsStart)
@@ -313,7 +314,7 @@ public class GambleController : MonoBehaviour
     //     return tempSprite;
     // }
 
-    IEnumerator GambleCoroutine(bool isRepeate=false)
+   public IEnumerator GambleCoroutine(bool isRepeate=false)
     {
         for (int i = 0; i < allcards.Count; i++)
         {
@@ -451,7 +452,7 @@ public class GambleController : MonoBehaviour
             if (fillAmount == 0.9) yield break;
             yield return null;
         }
-        yield return new WaitUntil(() => gambleStart);
+      //  yield return new WaitUntil(() => gambleStart);
         slider.fillAmount = 1;
         yield return new WaitForSeconds(1f);
         loadingScreen.SetActive(false);

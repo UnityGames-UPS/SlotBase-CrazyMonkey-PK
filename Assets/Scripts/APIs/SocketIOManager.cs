@@ -423,6 +423,7 @@ public class SocketIOManager : MonoBehaviour
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
         SendDataWithNamespace("request", json);
+        Debug.Log($"Gamble Draw Sended json : " + json);
     }
 
     internal void GambleCollect()
