@@ -733,6 +733,7 @@ public class SlotBehaviour : MonoBehaviour
             //PayoutLines[LineId[i]].SetActive(false);
             yield return null;
         }
+        yield return new WaitForSeconds(1.2f);
         CheckPopups = false;
 
 

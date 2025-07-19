@@ -6138,7 +6138,7 @@ MonoBehaviour:
   slotManager: {fileID: 2046803210}
   uiManager: {fileID: 377874625}
   bonusdata: []
-  testToken: 0be1b89e12a64299a67d37d3ec791c9d
+  testToken: f5df1b0e327b443caa3e2525eb23e567
   JSManager: {fileID: 2099207717}
 --- !u!1 &512334774
 GameObject:
@@ -14208,7 +14208,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 701, y: -403}
-  m_SizeDelta: {x: 335, y: 240}
+  m_SizeDelta: {x: 338, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1232531762
 MonoBehaviour:
@@ -14274,7 +14274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1316649044, guid: 4e3eed49ebd6f4755b1270ab8634170c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f3faa31b49ba4e6080b7eba61b22ba0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -31152,14 +31152,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.95686275, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 12188640a94b34bc191de12234246675, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e438c074b8194cb88e7b427e9719da9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
