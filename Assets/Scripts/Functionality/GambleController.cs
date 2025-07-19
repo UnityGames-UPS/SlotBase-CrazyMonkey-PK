@@ -57,11 +57,12 @@ public class GambleController : MonoBehaviour
 
     internal bool gambleStart = false;
     internal bool isResult = false;
-  private string[] cardSuits = new string[] { "Hearts", "Diamonds", "Clubs", "Spades" };
+    private string[] cardSuits = new string[] { "Hearts", "Diamonds", "Clubs", "Spades" };
     private cardStruct dealerCard = new cardStruct();
     private cardStruct playerCard = new cardStruct();
     private cardStruct spare1Card = new cardStruct();
     private cardStruct spare2Card = new cardStruct();
+    public Button[] gambleCardsbuttons;
 
     private void Start()
     {
@@ -91,6 +92,15 @@ public class GambleController : MonoBehaviour
         }
     }
 
+    internal void SetCardsInteractable(bool interactable)
+    {
+        foreach (Button btn in gambleCardsbuttons)
+        {
+            btn.interactable = interactable;
+        }
+    }
+
+
     void StartGamblegame(bool isRepeat = false)
     {
         if (GambleEnd_Object) GambleEnd_Object.SetActive(false);
@@ -104,8 +114,8 @@ public class GambleController : MonoBehaviour
         if (gamble_game) gamble_game.SetActive(true);
         loadingScreen.SetActive(true);
         StartCoroutine(loadingRoutine());
-       if(!isRepeat) socketManager.OnGamble();
-      //  StartCoroutine(GambleCoroutine(isRepeat));
+        if (!isRepeat) socketManager.OnGamble();
+        //  StartCoroutine(GambleCoroutine(isRepeat));
     }
 
     internal void GambleTweeningAnim(bool IsStart)
@@ -124,19 +134,19 @@ public class GambleController : MonoBehaviour
         }
     }
 
- private cardStruct ChoseARandomeCard(int val =-1)
+    private cardStruct ChoseARandomeCard(int val = -1)
     {
         cardStruct cardx = new cardStruct();
-        string suit ;
-        int value ;
+        string suit;
+        int value;
 
         int index = UnityEngine.Random.Range(0, cardSuits.Length);
         suit = cardSuits[index];
 
-        if (val== -1)
+        if (val == -1)
         {
-            value = UnityEngine.Random.Range(0, 13);    
-            
+            value = UnityEngine.Random.Range(0, 13);
+
         }
         else
         {
@@ -152,9 +162,9 @@ public class GambleController : MonoBehaviour
         cardStruct newCard = null;
         newCard = ChoseARandomeCard();
 
-        if(newCard == dealerCard && newCard == playerCard )
+        if (newCard == dealerCard && newCard == playerCard)
         {
-           return FindUniqueCard();
+            return FindUniqueCard();
         }
         else
         {
@@ -164,28 +174,28 @@ public class GambleController : MonoBehaviour
 
     private void ComputeCards()
     {
-       // highcard_Sprite = CardSet(socketManager.myMessage.highCard.suit, socketManager.myMessage.highCard.value);
+        // highcard_Sprite = CardSet(socketManager.myMessage.highCard.suit, socketManager.myMessage.highCard.value);
         // lowcard_Sprite = CardSet(socketManager.myMessage.lowCard.suit, socketManager.myMessage.lowCard.value);
         // spare1card_Sprite = CardSet(socketManager.myMessage.exCards[0].suit, socketManager.myMessage.exCards[0].value);
         // spare2card_Sprite = CardSet(socketManager.myMessage.exCards[1].suit, socketManager.myMessage.exCards[1].value);
 
 
-        dealerCard = ChoseARandomeCard(socketManager.GambleData.payload.cards.dealerCard -1);
-        playerCard = ChoseARandomeCard(socketManager.GambleData.payload.cards.playerCard -1);
+        dealerCard = ChoseARandomeCard(socketManager.GambleData.payload.cards.dealerCard - 1);
+        playerCard = ChoseARandomeCard(socketManager.GambleData.payload.cards.playerCard - 1);
         spare1Card = FindUniqueCard();
         spare2Card = FindUniqueCard();
-        Debug.Log($" Dealer :"+ socketManager.GambleData.payload.cards.dealerCard +"Player  "+ socketManager.GambleData.payload.cards.playerCard);
+        Debug.Log($" Dealer :" + socketManager.GambleData.payload.cards.dealerCard + "Player  " + socketManager.GambleData.payload.cards.playerCard);
 
 
-        highcard_Sprite = CardSet(dealerCard.suit,dealerCard.value);
+        highcard_Sprite = CardSet(dealerCard.suit, dealerCard.value);
         lowcard_Sprite = CardSet(playerCard.suit, playerCard.value);
         spare1card_Sprite = CardSet(spare1Card.suit, spare1Card.value);
-        spare2card_Sprite = CardSet(spare2Card.suit, spare2Card.value);           
+        spare2card_Sprite = CardSet(spare2Card.suit, spare2Card.value);
     }
 
     private Sprite CardSet(string suit, int value)
     {
-      
+
         Sprite tempSprite = null;
         switch (suit.ToUpper())
         {
@@ -314,14 +324,14 @@ public class GambleController : MonoBehaviour
     //     return tempSprite;
     // }
 
-   public IEnumerator GambleCoroutine(bool isRepeate=false)
+    public IEnumerator GambleCoroutine(bool isRepeate = false)
     {
         for (int i = 0; i < allcards.Count; i++)
         {
             allcards[i].once = false;
         }
 
-         if (isRepeate) socketManager.GambleDraw();
+        if (isRepeate) socketManager.GambleDraw();
         else socketManager.OnGamble(); // Send gamble request 
         Debug.Log($"Gamble coroutine styarted ");
         yield return new WaitUntil(() => socketManager.isResultdone);
@@ -341,7 +351,7 @@ public class GambleController : MonoBehaviour
         //     if (DealerCard_Script) DealerCard_Script.cardImage = highcard_Sprite;
         //     return lowcard_Sprite;
         // }
-               if (DealerCard_Script) DealerCard_Script.cardImage = highcard_Sprite;
+        if (DealerCard_Script) DealerCard_Script.cardImage = highcard_Sprite;
         return lowcard_Sprite;
     }
 
@@ -394,6 +404,7 @@ public class GambleController : MonoBehaviour
             winamount.text = "YOU LOSE" + "\n" + "0";
             StartCoroutine(Collectroutine());
         }
+        SetCardsInteractable(true);
 
     }
 
@@ -403,7 +414,7 @@ public class GambleController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         gambleStart = false;
         yield return new WaitForSeconds(1f);
-        slotController.updateBalance(socketManager.GambleData.player.balance,socketManager.GambleData.payload.winAmount);
+        slotController.updateBalance(socketManager.GambleData.player.balance, socketManager.GambleData.payload.winAmount);
         if (gamble_game) gamble_game.SetActive(false);
         if (slotController.WasAutoSpinON)
         {
@@ -424,7 +435,7 @@ public class GambleController : MonoBehaviour
     private void NormalCollectFunction()
     {
         gambleStart = false;
-        slotController.updateBalance(socketManager.GambleData.player.balance,socketManager.GambleData.payload.winAmount);
+        slotController.updateBalance(socketManager.GambleData.player.balance, socketManager.GambleData.payload.winAmount);
         if (gamble_game) gamble_game.SetActive(false);
         allcards.ForEach((element) =>
         {
@@ -452,7 +463,7 @@ public class GambleController : MonoBehaviour
             if (fillAmount == 0.9) yield break;
             yield return null;
         }
-      //  yield return new WaitUntil(() => gambleStart);
+        //  yield return new WaitUntil(() => gambleStart);
         slider.fillAmount = 1;
         yield return new WaitForSeconds(1f);
         loadingScreen.SetActive(false);

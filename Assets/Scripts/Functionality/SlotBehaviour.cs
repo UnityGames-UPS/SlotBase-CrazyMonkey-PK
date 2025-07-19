@@ -508,7 +508,7 @@ public class SlotBehaviour : MonoBehaviour
         }
         else
         {
-            ActivateGamble();
+          //  ActivateGamble();
             // yield return new WaitForSeconds(0.1f);
             IsSpinning = false;
         }

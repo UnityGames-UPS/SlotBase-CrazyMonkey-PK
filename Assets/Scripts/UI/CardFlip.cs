@@ -38,6 +38,7 @@ public class CardFlip : MonoBehaviour
     {
         // StartCoroutine(gambleController.GambleCoroutine(true));
         // StartCoroutine(FlipMainObject());
+        gambleController.SetCardsInteractable(false);
          StartCoroutine(FlipMainCardRoutine());
     }
     private IEnumerator FlipMainCardRoutine()

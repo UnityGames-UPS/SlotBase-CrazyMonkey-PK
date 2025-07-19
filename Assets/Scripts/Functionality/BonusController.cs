@@ -28,6 +28,7 @@ public class BonusController : MonoBehaviour
     int index = 0;
     double winAmount = 0;
     public double Totalwinamount=0;
+    public Image BonusPanel;
 
     internal void GetBailCaseList()
     {

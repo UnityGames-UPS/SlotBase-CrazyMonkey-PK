@@ -33,7 +33,7 @@ public class SocketIOManager : MonoBehaviour
     protected string SocketURI = null;
     // protected string TestSocketURI = "https://game-crm-rtp-backend.onrender.com/";
     //protected string SocketURI = "https://7p68wzhv-5000.inc1.devtunnels.ms/";
-    protected string TestSocketURI = "https://mx2md3l5-5000.inc1.devtunnels.ms/";
+    protected string TestSocketURI = "http://localhost:5000/";
 
     [SerializeField]
     private string testToken;
@@ -42,8 +42,8 @@ public class SocketIOManager : MonoBehaviour
 
     internal bool SetInit = false;
 
-    protected string gameID = "";
-    // protected string gameID = "SL-CRM";
+   // protected string gameID = "";
+     protected string gameID = "SL-CRM";
     // protected string nameSpace="game"; //BackendChanges
     protected string nameSpace = "playground"; //BackendChanges
     private Socket gameSocket; //BackendChanges
