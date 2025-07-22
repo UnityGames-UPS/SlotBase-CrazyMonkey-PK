@@ -38,8 +38,10 @@ public class CoconutBreaking : MonoBehaviour
 
     private IEnumerator TapBonus()
     {
+        _bonusManager.BonusPanel.gameObject.SetActive(true);
         SocketManager.AccumulateTapBonusResult(CaseIndex);
         yield return new WaitUntil(() => SocketManager.isResultdone);
+         _bonusManager.BonusPanel.gameObject.SetActive(false);
         // if (SocketManager.BonusData.winAmount > 0)
         // {
         //     text.text = SocketManager.BonusData.winAmount.ToString("f2");

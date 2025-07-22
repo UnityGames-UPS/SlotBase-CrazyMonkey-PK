@@ -59,6 +59,7 @@ public class BonusController : MonoBehaviour
         slotManager.updateBalance(socketManager.BonusData.player.balance, socketManager.BonusData.payload.winAmount);
         socketManager.resultData.payload.winAmount = socketManager.BonusData.payload.winAmount;
         Totalwinamount = 0;
+        BonusPanel.gameObject.SetActive(false);
     }
 
     internal double GetValue()

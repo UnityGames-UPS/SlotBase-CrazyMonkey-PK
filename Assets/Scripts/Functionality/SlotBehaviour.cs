@@ -456,15 +456,16 @@ public class SlotBehaviour : MonoBehaviour
         BalanceTween?.Kill();
         Balance_text.text = currentBalance.ToString("F3");
 
-        if (SocketManager.playerdata.currentWining > 0)
+        if (SocketManager.resultData.payload.winAmount > 0)
         {
-            SpinDelay = 1.4f;
+            SpinDelay = 1.2f;
         }
         else
         {
             SpinDelay = 0.2f;
         }
-
+      if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f3");
+      if (Balance_text) Balance_text.text = SocketManager.resultData.player.balance.ToString("f3");
         if (SocketManager.resultData.payload.winAmount > 0)
         {
             List<int> winLine = new();
@@ -478,8 +479,7 @@ public class SlotBehaviour : MonoBehaviour
             yield return new WaitUntil(() => !CheckPopups);
 
         }
-        if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f3");
-        if (Balance_text) Balance_text.text = SocketManager.resultData.player.balance.ToString("f3");
+       
 
         // CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit, SocketManager.resultData.jackpot);
         currentBalance = SocketManager.playerdata.balance;
