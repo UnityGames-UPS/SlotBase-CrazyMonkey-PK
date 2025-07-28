@@ -76,6 +76,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject DisconnectPopup_Object;
 
+    public GameObject ReconnectPopup_Object;
+
     [Header("AnotherDevice Popup")]
     [SerializeField]
     private Button CloseAD_Button;
@@ -178,6 +180,23 @@ public class UIManager : MonoBehaviour
         }
         //}
     }
+     internal void ReconnectionPopup()
+    {
+        OpenPopup(ReconnectPopup_Object);
+    }
+
+    internal void CheckAndClosePopups()
+    {
+        if (ReconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(ReconnectPopup_Object);
+        }
+        if (DisconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(DisconnectPopup_Object);
+        }
+    }
+
 
     private void ChangePage(bool Increment)
     {
@@ -242,19 +261,19 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < SymbolsText.Length; i++)
         {
-            Debug.Log($" symbolos payout "+ paylines.symbols[i].multiplier[0]);
+            Debug.Log($" symbolos payout " + paylines.symbols[i].multiplier[0]);
             string text = null;
             if (paylines.symbols[i].multiplier[0] != 0)
             {
-                text += "x - " + paylines.symbols[i].multiplier[0]+"x";
+                text += "x - " + paylines.symbols[i].multiplier[0] + "x";
             }
             if (paylines.symbols[i].multiplier[1] != 0)
             {
-                text += "\nx - " + paylines.symbols[i].multiplier[1]+"x";
+                text += "\nx - " + paylines.symbols[i].multiplier[1] + "x";
             }
             if (paylines.symbols[i].multiplier[2] != 0)
             {
-                text += "\nx - " + paylines.symbols[i].multiplier[2]+"x";
+                text += "\nx - " + paylines.symbols[i].multiplier[2] + "x";
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
         }
