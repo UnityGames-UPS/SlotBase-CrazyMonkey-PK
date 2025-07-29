@@ -174,6 +174,7 @@ public class UIManager : MonoBehaviour
         //else
         //{
         //    ClosePopup(ReconnectPopup_Object);
+        
         if (!isExit)
         {
             OpenPopup(DisconnectPopup_Object);

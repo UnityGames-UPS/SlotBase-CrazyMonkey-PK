@@ -246,7 +246,7 @@ public class SlotBehaviour : MonoBehaviour
     private void ChangeBet(bool IncDec)
     {
         if (audioController) audioController.PlayButtonAudio();
-       if (IncDec)
+        if (IncDec)
         {
             BetCounter++;
             if (BetCounter > SocketManager.initialData.bets.Count - 1)
@@ -483,8 +483,8 @@ public class SlotBehaviour : MonoBehaviour
         {
             SpinDelay = 0.2f;
         }
-      if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f3");
-      if (Balance_text) Balance_text.text = SocketManager.resultData.player.balance.ToString("f3");
+        if (TotalWin_text) TotalWin_text.text = SocketManager.resultData.payload.winAmount.ToString("f3");
+        if (Balance_text) Balance_text.text = SocketManager.resultData.player.balance.ToString("f3");
         if (SocketManager.resultData.payload.winAmount > 0)
         {
             List<int> winLine = new();
@@ -499,16 +499,16 @@ public class SlotBehaviour : MonoBehaviour
 
         }
         CheckForFeaturesAnimation();
-       
+
 
         // CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit, SocketManager.resultData.jackpot);
         currentBalance = SocketManager.playerdata.balance;
-         currentBet = SocketManager.initialData.bets[BetCounter];
-         CheckPopups = true;
+        currentBet = SocketManager.initialData.bets[BetCounter];
+        CheckPopups = true;
         if (SocketManager.resultData.bonus.isTriggered)
         {
             yield return new WaitForSeconds(0.6f);
-          //  _bonusManager.GetBailCaseList();
+            //  _bonusManager.GetBailCaseList();
             _bonusManager.StartBonus();
         }
         else
@@ -528,7 +528,7 @@ public class SlotBehaviour : MonoBehaviour
         }
         else
         {
-          //  ActivateGamble();
+            //  ActivateGamble();
             // yield return new WaitForSeconds(0.1f);
             IsSpinning = false;
         }
@@ -536,7 +536,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private void ActivateGamble()
     {
-        if (SocketManager.resultData.payload.winAmount > 0 )
+        if (SocketManager.resultData.payload.winAmount > 0)
         {
             gambleController.GambleTweeningAnim(true);
             gambleController.toggleDoubleButton(true);
@@ -600,16 +600,17 @@ public class SlotBehaviour : MonoBehaviour
 
     internal void CallCloseSocket()
     {
-        SocketManager.CloseSocket();
+       StartCoroutine(SocketManager.CloseSocket());
     }
 
     void ToggleButtonGrp(bool toggle)
     {
-
         if (SlotStart_Button) SlotStart_Button.interactable = toggle;
         if (MaxBet_Button) MaxBet_Button.interactable = toggle;
         if (AutoSpin_Button) AutoSpin_Button.interactable = toggle;
         if (BetOne_button) BetOne_button.interactable = toggle;
+        BetMinus_button.interactable = toggle;
+        BetPlus_button.interactable = toggle;
     }
 
     internal void updateBalance(double balance, double winamount)
@@ -617,8 +618,8 @@ public class SlotBehaviour : MonoBehaviour
         Debug.Log($" Balance : " + balance + " Win amount :" + winamount);
         if (Balance_text) Balance_text.text = balance.ToString("f3");
         if (TotalWin_text) TotalWin_text.text = winamount.ToString("f3");
-        
-         Debug.Log($" Balance : "+ balance + " Win amount :"+ winamount + " Texts fields"+ Balance_text.text.ToString() + "    "+ TotalWin_text.text.ToString()); 
+
+        Debug.Log($" Balance : " + balance + " Win amount :" + winamount + " Texts fields" + Balance_text.text.ToString() + "    " + TotalWin_text.text.ToString());
     }
 
     //start the icons animation
@@ -716,12 +717,12 @@ public class SlotBehaviour : MonoBehaviour
         bool playScatter = false;
         bool playBonus = false;
         bool playFreespin = false;
-       
-        if (SocketManager.resultData.bonus.isTriggered )
+
+        if (SocketManager.resultData.bonus.isTriggered)
         {
             playBonus = true;
         }
-       
+
         PlayFeatureAnimation(playScatter, playBonus, playFreespin);
     }
     private void PlayFeatureAnimation(bool scatter = false, bool bonus = false, bool freeSpin = false)
