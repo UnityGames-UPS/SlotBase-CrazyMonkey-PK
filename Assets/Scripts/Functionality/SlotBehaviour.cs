@@ -615,11 +615,11 @@ public class SlotBehaviour : MonoBehaviour
 
     internal void updateBalance(double balance, double winamount)
     {
-        Debug.Log($" Balance : " + balance + " Win amount :" + winamount);
+        // Debug.Log($" Balance : " + balance + " Win amount :" + winamount);
         if (Balance_text) Balance_text.text = balance.ToString("f3");
         if (TotalWin_text) TotalWin_text.text = winamount.ToString("f3");
 
-        Debug.Log($" Balance : " + balance + " Win amount :" + winamount + " Texts fields" + Balance_text.text.ToString() + "    " + TotalWin_text.text.ToString());
+        // Debug.Log($" Balance : " + balance + " Win amount :" + winamount + " Texts fields" + Balance_text.text.ToString() + "    " + TotalWin_text.text.ToString());
     }
 
     //start the icons animation
@@ -640,77 +640,6 @@ public class SlotBehaviour : MonoBehaviour
         TempList.Clear();
         TempList.TrimExcess();
     }
-
-
-    //   private IEnumerator CheckPayoutLineBackend(List<int> LineId)
-    //     {
-    //         float delay = 0f;
-    //         if (IsFreeSpin  || IsTurboOn) delay = 0.5f;
-    //         else delay = 1.2f;
-    //         if (LineId.Count > 0)
-    //         {
-
-    //             List<KeyValuePair<int, int>> Totalcoords = new();
-    //             for (int i = 0; i < LineId.Count; i++)
-    //             {
-    //                 List<KeyValuePair<int, int>> coords = new();
-
-    //                 Debug.Log("line come " + LineId[i]);
-    //                 PayoutLines[LineId[i]].SetActive(true);
-    //                 for (int k = 0; k < SocketManager.resultData.payload.wins[i].positions.Count; k++)
-    //                 {
-    //                     int rowIndex = SocketManager.initialData.lines[LineId[i]][SocketManager.resultData.payload.wins[i].positions[k]];
-    //                     int columnIndex = SocketManager.resultData.payload.wins[i].positions[k];
-    //                     coords.Add(new KeyValuePair<int, int>(rowIndex, columnIndex));
-    //                     Totalcoords.Add(new KeyValuePair<int, int>(rowIndex, columnIndex));
-    //                 }
-
-    //                 foreach (var coord in coords)
-    //                 {
-    //                     int rowIndex = coord.Key;
-    //                     int columnIndex = coord.Value;
-    //                     StartGameAnimation(Tempimages[columnIndex].slotImages[rowIndex].gameObject);
-    //                     ReelsHideGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(false);
-    //                     ReelsFrameGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(true);
-
-    //                 }
-    //                 yield return new WaitForSeconds(delay);
-    //                 foreach (var coord in coords)
-    //                 {
-
-    //                     int rowIndex = coord.Key;
-    //                     int columnIndex = coord.Value;
-    //                     Tempimages[columnIndex].slotImages[rowIndex].gameObject.GetComponent<ImageAnimation>().StopAnimation();
-    //                     ReelsHideGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(true);
-    //                     ReelsFrameGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(false);
-
-    //                 }
-    //                 PayoutLines[LineId[i]].SetActive(false);
-    //             }
-    //             for (int i = 0; i < LineId.Count; i++)
-    //             {
-    //                 PayoutLines[LineId[i]].SetActive(true);
-    //                 foreach (var coord in Totalcoords)
-    //                 {
-    //                     int rowIndex = coord.Key;
-    //                     int columnIndex = coord.Value;
-    //                     StartGameAnimation(Tempimages[columnIndex].slotImages[rowIndex].gameObject);
-    //                     ReelsHideGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(false);
-    //                     ReelsFrameGameObject1[columnIndex].slotImages[rowIndex].gameObject.SetActive(true);
-    //                 }
-
-    //             }
-
-    //             WinningsAnim(true);
-    //             CheckPopups = false;
-    //         }
-    //         else
-    //         {
-    //             //if (audioController) audioController.PlayWLAudio("lose");
-    //             if (audioController) audioController.StopWLAaudio();
-    //         }
-    //         CheckSpinAudio = false;
-    //     }
 
     private void CheckForFeaturesAnimation()
     {
@@ -752,19 +681,14 @@ public class SlotBehaviour : MonoBehaviour
         }
     }
 
-
-
-
     private IEnumerator CheckPayoutLineBackend(List<int> LineId)
     {
-        List<int> points_anim = null;
-
         List<KeyValuePair<int, int>> Totalcoords = new();
         for (int i = 0; i < LineId.Count; i++)
         {
             List<KeyValuePair<int, int>> coords = new();
 
-            Debug.Log("line come " + LineId[i]);
+            // Debug.Log("line come " + LineId[i]);
             PayCalculator.DontDestroyLines.Add(LineId[i]);
             PayCalculator.GeneratePayoutLinesBackend(LineId[i]);
 

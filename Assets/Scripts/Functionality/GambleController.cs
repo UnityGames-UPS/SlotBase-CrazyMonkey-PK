@@ -154,7 +154,7 @@ public class GambleController : MonoBehaviour
         }
         cardx.suit = suit;
         cardx.value = value;
-        Debug.Log($"ChoseARandomeCard: {cardx.suit} {cardx.value}");
+        // Debug.Log($"ChoseARandomeCard: {cardx.suit} {cardx.value}");
         return cardx;
     }
     private cardStruct FindUniqueCard()
@@ -184,7 +184,7 @@ public class GambleController : MonoBehaviour
         playerCard = ChoseARandomeCard(socketManager.GambleData.payload.cards.playerCard - 1);
         spare1Card = FindUniqueCard();
         spare2Card = FindUniqueCard();
-        Debug.Log($" Dealer :" + socketManager.GambleData.payload.cards.dealerCard + "Player  " + socketManager.GambleData.payload.cards.playerCard);
+        // Debug.Log($" Dealer :" + socketManager.GambleData.payload.cards.dealerCard + "Player  " + socketManager.GambleData.payload.cards.playerCard);
 
 
         highcard_Sprite = CardSet(dealerCard.suit, dealerCard.value);
@@ -333,7 +333,6 @@ public class GambleController : MonoBehaviour
 
         if (isRepeate) socketManager.GambleDraw();
         else socketManager.OnGamble(); // Send gamble request 
-        Debug.Log($"Gamble coroutine styarted ");
         yield return new WaitUntil(() => socketManager.isResultdone);
         ComputeCards();
         gambleStart = true;

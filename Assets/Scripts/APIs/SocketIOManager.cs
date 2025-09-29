@@ -213,12 +213,12 @@ public class SocketIOManager : MonoBehaviour
 
     private void OnPongReceived(string data) //Back2 Start
     {
-        Debug.Log("✅ Received pong from server.");
+        // Debug.Log("✅ Received pong from server.");
         waitingForPong = false;
         missedPongs = 0;
         lastPongTime = Time.time;
-        Debug.Log($"⏱️ Updated last pong time: {lastPongTime}");
-        Debug.Log($"📦 Pong payload: {data}");
+        // Debug.Log($"⏱️ Updated last pong time: {lastPongTime}");
+        // Debug.Log($"📦 Pong payload: {data}");
     }
 
     private void OnError(Error err)
@@ -231,7 +231,7 @@ public class SocketIOManager : MonoBehaviour
 
     private void OnListenEvent(string data)
     {
-        Debug.Log("Received some_event with data: " + data);
+        // Debug.Log("Received some_event with data: " + data);
         ParseResponse(data);
     }
 
@@ -280,7 +280,7 @@ public class SocketIOManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
+            // Debug.Log($"🟡 PingCheck | waitingForPong: {waitingForPong}, missedPongs: {missedPongs}, timeSinceLastPong: {Time.time - lastPongTime}");
 
             if (missedPongs == 0)
             {
@@ -309,7 +309,7 @@ public class SocketIOManager : MonoBehaviour
             // Send next ping
             waitingForPong = true;
             lastPongTime = Time.time;
-            Debug.Log("📤 Sending ping...");
+            // Debug.Log("📤 Sending ping...");
             SendDataWithNamespace("ping");
             yield return new WaitForSeconds(pingInterval);
         }
@@ -366,7 +366,6 @@ public class SocketIOManager : MonoBehaviour
                     bonusdata = myData.gameData.spinBonus; ;
                     if (!SetInit)
                     {
-                        Debug.Log(jsonObject);
                         List<string> InitialReels = ConvertListOfListsToStrings(initialData.lines);
                         InitialReels = RemoveQuotes(InitialReels);
                         PopulateSlotSocket(InitialReels);
@@ -380,7 +379,6 @@ public class SocketIOManager : MonoBehaviour
                 }
             case "ResultData":
                 {
-                    Debug.Log(jsonObject);
                     // myData.message.GameData.FinalResultReel = ConvertListOfListsToStrings(myData.message.GameData.ResultReel);
                     // myData.message.GameData.FinalsymbolsToEmit = TransformAndRemoveRecurring(myData.message.GameData.symbolsToEmit);
                     resultData = myData;
@@ -391,7 +389,6 @@ public class SocketIOManager : MonoBehaviour
 
             case "bonusResult":
                 {
-                    Debug.Log(jsonObject);
                     //  PlayerData = myData.player;
                     BonusData = myData;
                     //UpdateUiOnResult(myData);
@@ -400,7 +397,6 @@ public class SocketIOManager : MonoBehaviour
                 }
             case "gambleInit":
                 {
-                    Debug.Log(jsonObject);
                     // myMessage = myData.message;
                     GambleData = myData;
                     isResultdone = true;
@@ -513,7 +509,6 @@ public class SocketIOManager : MonoBehaviour
         message.payload = new Data();
         message.type = "GAMBLE";
         Debug.Log(slotManager.BetCounter);
-        message.payload.lastWinning = slotManager.BetCounter;
         message.payload.Event = "init";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
@@ -526,8 +521,6 @@ public class SocketIOManager : MonoBehaviour
         MessageData message = new MessageData();
         message.payload = new Data();
         message.type = "GAMBLE";
-        Debug.Log(slotManager.BetCounter);
-        message.payload.lastWinning = slotManager.BetCounter;
         message.payload.Event = "draw";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
@@ -542,7 +535,6 @@ public class SocketIOManager : MonoBehaviour
         message.payload = new Data();
         message.type = "GAMBLE";
 
-        message.payload.lastWinning = slotManager.BetCounter;
         message.payload.Event = "collect";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
@@ -564,7 +556,6 @@ public class SocketIOManager : MonoBehaviour
         message.payload = new Data();
         message.type = "GAMBLE";
 
-        message.payload.lastWinning = slotManager.BetCounter;
         message.payload.Event = "collect";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
@@ -640,7 +631,6 @@ public class SocketIOManager : MonoBehaviour
 public class GambleData
 {
     public string type;
-    public double lastWinning;
     public string cardSelected;
     public string Event;
 
@@ -679,7 +669,6 @@ public class Data
 {
     public int betIndex;
     public string Event;
-    public double lastWinning;
     public int index;
 
 }
