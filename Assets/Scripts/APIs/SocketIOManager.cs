@@ -508,7 +508,6 @@ public class SocketIOManager : MonoBehaviour
         MessageData message = new MessageData();
         message.payload = new Data();
         message.type = "GAMBLE";
-        Debug.Log(slotManager.BetCounter);
         message.payload.Event = "init";
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
